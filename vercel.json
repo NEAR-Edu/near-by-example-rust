@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "pages/api/exercises/**/index.js": {
-      "includeFiles": "exercises/**"
-    }
-  }
-}
