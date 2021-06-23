@@ -1,28 +1,30 @@
-import { readFileSync, readdirSync } from "fs";
+import { readFile } from "fs";
+import fetch from "node-fetch";
 import { join } from "path";
 
-export default function handler(req, res) {
+const resolveFiles = (id) => {
+  const files = ["README.md", "lib.rs", "test.rs"];
+  if (process.env.LOCAL) {
+    return Promise.all(
+      files.map((file) =>
+        readFile(join(process.cwd(), "exercises", id, file), "utf-8")
+      )
+    );
+  } else {
+    return Promise.all(
+      files.map((file) =>
+        fetch(
+          `https://raw.githubusercontent.com/NEAR-Edu/near-by-example-rust/main/exercises/${id}/${file}`
+        ).then((res) => res.text())
+      )
+    );
+  }
+};
+
+export default async function handler(req, res) {
   const { id } = req.query;
 
-  console.log(readdirSync(process.cwd()));
-  console.log(readdirSync(`${process.cwd()}/.next`));
-  console.log(readdirSync(`${process.cwd()}/.next/server`));
-  console.log(readdirSync(`${process.cwd()}/.next/server/pages`));
-  console.log(readdirSync(`${process.cwd()}/.next/server/pages/api`));
-  console.log(readdirSync(`${process.cwd()}/.next/server/pages/api/exercises`));
-
-  const explaination = readFileSync(
-    join(process.cwd(), "exercises", id, "README.md"),
-    "utf-8"
-  );
-  const starterCode = readFileSync(
-    join(process.cwd(), "exercises", id, "lib.rs"),
-    "utf-8"
-  );
-  const testCode = readFileSync(
-    join(process.cwd(), "exercises", id, "test.rs"),
-    "utf-8"
-  );
+  const [explaination, starterCode, testCode] = await resolveFiles(id);
 
   res.send({ explaination, starterCode, testCode });
 }
