@@ -1,0 +1,31 @@
+.Home {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 1rem;
+  margin: 1rem auto;
+  padding: 1rem;
+  max-width: 50rem;
+  border-radius: 1rem;
+
+  font-size: 1rem;
+
+  background-color: var(--bg-secondary);
+
+  img {
+    width: 100%;
+  }
+
+  button {
+    display: block;
+    padding: 1rem;
+    margin: auto;
+    font-size: 1rem;
+
+    cursor: pointer;
+  }
+
+  .bold {
+    font-weight: bolder;
+    color: var(--primary);
+  }
+}

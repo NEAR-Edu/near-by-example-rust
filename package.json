@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "marked": "^2.1.2",
+    "near-api-js": "^0.41.0",
     "next": "11.0.0",
     "node-fetch": "^2.6.1",
     "react": "17.0.2",
