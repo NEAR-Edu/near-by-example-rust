@@ -1,9 +1,9 @@
 import Editor from "../editor/Editor";
-import ExplainationTabs from "../explaination/ExplainationTabs";
+import ExplanationTabs from "../explanation/ExplanationTabs";
 import styles from "./Exercise.module.scss";
 
 export default function Exercise({
-  explaination,
+  explanation,
   code,
   testCode,
   stdout,
@@ -12,8 +12,8 @@ export default function Exercise({
 }) {
   return (
     <section className={styles.Exercise}>
-      <ExplainationTabs
-        explaination={explaination}
+      <ExplanationTabs
+        explanation={explanation}
         testCode={testCode}
         stdout={stdout}
       />

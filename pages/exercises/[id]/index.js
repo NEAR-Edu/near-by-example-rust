@@ -27,7 +27,7 @@ const ForwardButton = ({ success, inProgress, onClick }) => {
 export default function ExercisePage() {
   const router = useRouter();
   const { id } = router.query;
-  const { explaination, code, testCode, loading, onCodeChange } =
+  const { explanation, code, testCode, loading, onCodeChange } =
     useExercise(id);
   const { stdout, annotations, success, inProgress, compileAndTest } =
     useCompile();
@@ -55,7 +55,7 @@ export default function ExercisePage() {
         />
       </section>
       <Exercise
-        explaination={explaination}
+        explanation={explanation}
         code={code}
         testCode={testCode}
         stdout={stdout}

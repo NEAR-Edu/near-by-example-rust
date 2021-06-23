@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useExercise = (id) => {
-  const [explaination, setExplaination] = useState();
+  const [explanation, setExplanation] = useState();
   const [code, setCode] = useState();
   const [testCode, setTestCode] = useState();
   const [loading, setLoading] = useState(true);
@@ -10,8 +10,8 @@ export const useExercise = (id) => {
     if (!id) return;
     fetch(`/api/exercises/${id}`)
       .then((res) => res.json())
-      .then(({ explaination, starterCode, testCode }) => {
-        setExplaination(explaination);
+      .then(({ explanation, starterCode, testCode }) => {
+        setExplanation(explanation);
         setCode(starterCode);
         setTestCode(testCode);
       })
@@ -19,7 +19,7 @@ export const useExercise = (id) => {
   }, [id]);
 
   return {
-    explaination,
+    explanation,
     code,
     testCode,
     loading,

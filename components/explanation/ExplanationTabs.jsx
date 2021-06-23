@@ -1,24 +1,24 @@
 import marked from "marked";
 import { useState } from "react";
 import Editor from "../editor/Editor";
-import styles from "./Explaination.module.scss";
+import styles from "./Explanation.module.scss";
 
-const Explaination = ({ className, explaination }) => (
+const Explanation = ({ className, explanation }) => (
   <section
     className={className}
-    dangerouslySetInnerHTML={{ __html: marked(explaination) }}
+    dangerouslySetInnerHTML={{ __html: marked(explanation) }}
   ></section>
 );
 
-const ExplainationCode = ({ explaination, testCode }) => (
+const ExplanationCode = ({ explanation, testCode }) => (
   <>
-    <Explaination className={styles.explaination} explaination={explaination} />
+    <Explanation className={styles.explanation} explanation={explanation} />
     <Editor className={styles.testCode} code={testCode} />
   </>
 );
 
-const OnlyExplaination = ({ explaination }) => (
-  <Explaination className={styles.only} explaination={explaination} />
+const OnlyExplanation = ({ explanation }) => (
+  <Explanation className={styles.only} explanation={explanation} />
 );
 
 const OnlyTests = ({ testCode }) => (
@@ -27,11 +27,11 @@ const OnlyTests = ({ testCode }) => (
 
 const OnlyStdout = ({ stdout }) => <pre className={styles.only}>{stdout}</pre>;
 
-export default function ExplainationTabs({ explaination, testCode, stdout }) {
+export default function ExplanationTabs({ explanation, testCode, stdout }) {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const tabs = [
-    { Component: ExplainationCode, label: "Explaination And Tests" },
-    { Component: OnlyExplaination, label: "Explaination" },
+    { Component: ExplanationCode, label: "Explanation And Tests" },
+    { Component: OnlyExplanation, label: "Explanation" },
     { Component: OnlyTests, label: "Tests" },
     { Component: OnlyStdout, label: "stdout" },
   ];
@@ -39,7 +39,7 @@ export default function ExplainationTabs({ explaination, testCode, stdout }) {
   const { Component } = tabs[currentTabIndex];
 
   return (
-    <section className={styles.Explaination}>
+    <section className={styles.Explanation}>
       <nav className={styles.tabs}>
         {tabs.map(({ label }, index) => (
           <button
@@ -52,7 +52,7 @@ export default function ExplainationTabs({ explaination, testCode, stdout }) {
         ))}
       </nav>
       <Component
-        explaination={explaination}
+        explanation={explanation}
         testCode={testCode}
         stdout={stdout}
       />

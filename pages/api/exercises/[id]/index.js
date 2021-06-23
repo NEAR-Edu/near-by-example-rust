@@ -24,7 +24,7 @@ const resolveFiles = (id) => {
 export default async function handler(req, res) {
   const { id } = req.query;
 
-  const [explaination, starterCode, testCode] = await resolveFiles(id);
+  const [explanation, starterCode, testCode] = await resolveFiles(id);
 
-  res.send({ explaination, starterCode, testCode });
+  res.send({ explanation, starterCode, testCode });
 }
