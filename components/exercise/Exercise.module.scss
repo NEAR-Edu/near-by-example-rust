@@ -1,0 +1,10 @@
+.Exercise {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  height: calc(100% - 4rem);
+
+  .code {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

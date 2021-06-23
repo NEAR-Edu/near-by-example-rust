@@ -1,0 +1,47 @@
+.ExercisePage {
+  height: 100%;
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0.5rem;
+    height: 3rem;
+
+    line-height: 0;
+    text-align: center;
+
+    .pass {
+      color: var(--pass);
+    }
+
+    .fail {
+      color: var(--fail);
+    }
+
+    button {
+      border: none;
+
+      background-color: var(--bg);
+      color: var(--fg);
+      cursor: pointer;
+
+      &.run {
+        width: 8rem;
+        height: 2rem;
+        border: 1px solid var(--fg);
+        font-size: 1rem;
+      }
+
+      &.navButton {
+        font-size: 4rem;
+        line-height: 0;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

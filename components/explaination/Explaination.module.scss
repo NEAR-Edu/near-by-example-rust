@@ -1,0 +1,37 @@
+.Explaination {
+  .tabs {
+    margin: 0;
+    padding: 0.5rem 0;
+    height: 3rem;
+
+    button {
+      border: 0;
+      padding: 0.5rem;
+      margin: 0 0.1rem;
+      background-color: var(--bg-secondary);
+      color: var(--fg);
+      cursor: pointer;
+    }
+
+    .active {
+      border-bottom: 1px solid var(--primary);
+    }
+  }
+
+  .explaination {
+    padding: 0.5rem;
+    height: calc(50% - 3rem);
+    overflow: auto;
+  }
+
+  .testCode {
+    width: 100% !important;
+    height: 50% !important;
+  }
+
+  .only {
+    padding: 0.5rem;
+    width: 100% !important;
+    height: calc(100% - 3rem) !important;
+  }
+}
