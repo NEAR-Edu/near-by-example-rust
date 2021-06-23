@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/exercises/**/index.js": {
+    "pages/api/exercises/**/index.js": {
       "includeFiles": "exercises/**"
     }
   }
