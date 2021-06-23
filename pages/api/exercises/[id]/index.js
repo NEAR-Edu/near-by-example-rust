@@ -7,7 +7,9 @@ export default function handler(req, res) {
   console.log(readdirSync(process.cwd()));
   console.log(readdirSync(`${process.cwd()}/.next`));
   console.log(readdirSync(`${process.cwd()}/.next/server`));
-  console.log(readdirSync(`${process.cwd()}/.next/server/chunks`));
+  console.log(readdirSync(`${process.cwd()}/.next/server/pages`));
+  console.log(readdirSync(`${process.cwd()}/.next/server/pages/api`));
+  console.log(readdirSync(`${process.cwd()}/.next/server/pages/api/exercises`));
 
   const explaination = readFileSync(
     join(process.cwd(), "exercises", id, "README.md"),
