@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "marked": "^2.1.2",
     "next": "11.0.0",
     "node-fetch": "^2.6.1",
     "react": "17.0.2",

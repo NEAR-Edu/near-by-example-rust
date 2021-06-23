@@ -7,6 +7,7 @@ export const useExercise = (id) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!id) return;
     fetch(`/api/exercises/${id}`)
       .then((res) => res.json())
       .then(({ explaination, starterCode, testCode }) => {

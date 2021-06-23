@@ -1,16 +1,24 @@
+import marked from "marked";
 import { useState } from "react";
 import Editor from "../editor/Editor";
 import styles from "./Explaination.module.scss";
 
+const Explaination = ({ className, explaination }) => (
+  <section
+    className={className}
+    dangerouslySetInnerHTML={{ __html: marked(explaination) }}
+  ></section>
+);
+
 const ExplainationCode = ({ explaination, testCode }) => (
   <>
-    <section className={styles.explaination}>{explaination}</section>
+    <Explaination className={styles.explaination} explaination={explaination} />
     <Editor className={styles.testCode} code={testCode} />
   </>
 );
 
 const OnlyExplaination = ({ explaination }) => (
-  <section className={styles.only}>{explaination}</section>
+  <Explaination className={styles.only} explaination={explaination} />
 );
 
 const OnlyTests = ({ testCode }) => (
@@ -19,7 +27,7 @@ const OnlyTests = ({ testCode }) => (
 
 const OnlyStdout = ({ stdout }) => <pre className={styles.only}>{stdout}</pre>;
 
-export default function Explaination({ explaination, testCode, stdout }) {
+export default function ExplainationTabs({ explaination, testCode, stdout }) {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const tabs = [
     { Component: ExplainationCode, label: "Explaination And Tests" },

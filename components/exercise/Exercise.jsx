@@ -1,5 +1,5 @@
 import Editor from "../editor/Editor";
-import Explaination from "../explaination/Explaination";
+import ExplainationTabs from "../explaination/ExplainationTabs";
 import styles from "./Exercise.module.scss";
 
 export default function Exercise({
@@ -12,7 +12,7 @@ export default function Exercise({
 }) {
   return (
     <section className={styles.Exercise}>
-      <Explaination
+      <ExplainationTabs
         explaination={explaination}
         testCode={testCode}
         stdout={stdout}

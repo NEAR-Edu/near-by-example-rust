@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/exercises/[id]/index.js": {
+      "includeFiles": "exercises/**"
+    }
+  }
+}

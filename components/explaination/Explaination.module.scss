@@ -1,4 +1,24 @@
 .Explaination {
+  font-size: 1rem;
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.15rem;
+  }
+
+  code {
+    padding: 1px;
+    border: 1px groove var(--fg);
+    background-color: var(--bg-secondary);
+  }
+
   .tabs {
     margin: 0;
     padding: 0.5rem 0;
