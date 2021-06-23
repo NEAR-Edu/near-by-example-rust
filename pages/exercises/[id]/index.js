@@ -42,7 +42,12 @@ export default function ExercisePage() {
   return (
     <section className={styles.ExercisePage}>
       <section className={styles.controls}>
-        <button className={styles.navButton}>&lsaquo;</button>
+        <button
+          className={styles.navButton}
+          onClick={() => router.push(`/exercises/${+id - 1}`)}
+        >
+          &lsaquo;
+        </button>
         <p className={success ? styles.pass : styles.fail}>
           {success
             ? `Passed ${String.fromCharCode(10003)}`

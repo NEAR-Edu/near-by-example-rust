@@ -62,8 +62,7 @@ mod tests {
         let context = get_context(vec![], false);
         testing_env!(context);
 
-        let mut contract = Counter { val: 0 };
-        contract.increment();
+        let mut contract = Counter { val: 42 };
         contract.reset();
 
         assert_eq!(0, contract.get_num());

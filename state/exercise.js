@@ -61,7 +61,7 @@ export const useCompile = () => {
           ),
         ].map(([, type, row, text]) => ({ type, row: Number(row) - 1, text }))
       );
-      setStdout(stdout);
+      setStdout(`${stderr}\n\n${stdout}`);
       setSuccess(success);
     } finally {
       setInProgress(false);

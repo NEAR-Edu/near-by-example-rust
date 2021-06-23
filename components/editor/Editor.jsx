@@ -25,7 +25,7 @@ export default function Editor({
       className={className}
       mode="rust"
       theme="pastel_on_dark"
-      defaultValue={code}
+      value={code}
       readOnly={!onCodeChange}
       onChange={onCodeChange}
       fontSize="1rem"
