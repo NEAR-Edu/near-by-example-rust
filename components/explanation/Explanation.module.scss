@@ -2,6 +2,8 @@
   width: 100%;
   font-size: 1rem;
 
+  line-height: 1.5rem;
+
   h1 {
     font-size: 1.2rem;
   }
@@ -40,20 +42,27 @@
   }
 
   .explanation {
-    padding: 0.5rem;
+    padding: 0 0.8rem;
     height: calc(50% - 3rem);
+
+    border: 1px solid var(--fg);
+
     overflow: auto;
   }
 
   .testCode {
     width: 100% !important;
     height: 50% !important;
+    border: 1px solid var(--fg);
   }
 
   .only {
-    padding: 0.5rem;
+    padding: 0 0.8rem;
     width: 100% !important;
     height: calc(100% - 3rem) !important;
+
+    border: 1px solid var(--fg);
+
     overflow: scroll;
   }
 }

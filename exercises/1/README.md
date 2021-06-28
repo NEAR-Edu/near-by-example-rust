@@ -18,9 +18,10 @@ The `decrement` smart contract method should decrement `val` by `1`. Like `incre
 
 The `reset` smart contract method should reset `val` to `0`. Like `increment` and `decrement`, it is a mutable method.
 
-## Resounces
+## Resources
 
-- [Rust Book - Data Types](https://ferrous-systems.github.io/teaching-material/basic-types.html#/) \*[Rust Book - Structs](https://doc.rust-lang.org/book/ch05-01-defining-structs.html)
+- [Rust Book - Data Types](https://ferrous-systems.github.io/teaching-material/basic-types.html#)
+- [Rust Book - Structs](https://doc.rust-lang.org/book/ch05-01-defining-structs.html)
 - [Rust Book - Method Syntax](https://doc.rust-lang.org/book/ch05-03-method-syntax.html)
 - [Ferrous Systems - Basic Type](https://ferrous-systems.github.io/teaching-material/basic-types.html)
 - [Ferrous Systems - Compound Types](https://ferrous-systems.github.io/teaching-material/compound-types.html#/)

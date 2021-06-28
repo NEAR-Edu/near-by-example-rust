@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useCompile, useExercise } from "../../../state/exercise";
 import Exercise from "../../../components/exercise/Exercise";
@@ -30,7 +31,13 @@ export default function ExercisePage() {
   const { explanation, code, testCode, loading, onCodeChange } =
     useExercise(id);
   const { stdout, annotations, success, inProgress, compileAndTest } =
-    useCompile();
+    useCompile(id);
+
+  useEffect(() => {
+    if (loading) return;
+    console.log(code);
+    compileAndTest({ code, testCode });
+  }, [loading]);
 
   if (loading) return <Loading />;
 

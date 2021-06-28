@@ -8,6 +8,10 @@ export const useExercise = (id) => {
 
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
+    setExplanation();
+    setCode();
+    setTestCode();
     fetch(`/api/exercises/${id}`)
       .then((res) => res.json())
       .then(({ explanation, starterCode, testCode }) => {
@@ -53,7 +57,7 @@ export const useCompile = () => {
           tests: true,
         }),
       });
-      const { stderr, stdout, success } = await res.json();
+      const { stderr = "", stdout, success } = await res.json();
       setAnnotations(
         [
           ...stderr.matchAll(
