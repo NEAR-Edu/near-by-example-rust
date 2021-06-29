@@ -1,0 +1,40 @@
+.Exercises {
+  width: 40rem;
+  margin: 5rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  background-color: #ffffff;
+  color: var(--bg);
+
+  font-size: 1.2rem;
+
+  list-style-type: none;
+
+  li {
+    padding: 1rem;
+
+    &:hover {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        font-weight: bolder;
+      }
+
+      .pass {
+        color: #4bb543;
+        font-size: 1.5rem;
+      }
+
+      .fail {
+        color: #ff0033;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

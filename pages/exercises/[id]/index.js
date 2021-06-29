@@ -4,6 +4,7 @@ import { useCompile, useExercise } from "../../../state/exercise";
 import Exercise from "../../../components/exercise/Exercise";
 import styles from "../../../styles/ExercisePage.module.scss";
 import Loading from "../../../components/loading/Loading";
+import { useSetExerciseStatus } from "../../../state/near";
 
 const ForwardButton = ({ success, inProgress, onClick }) => {
   if (success) {
@@ -32,18 +33,21 @@ export default function ExercisePage() {
     useExercise(id);
   const { stdout, annotations, success, inProgress, compileAndTest } =
     useCompile(id);
+  const setExerciseStatus = useSetExerciseStatus(id);
 
   useEffect(() => {
     if (loading) return;
-    console.log(code);
     compileAndTest({ code, testCode });
   }, [loading]);
 
   if (loading) return <Loading />;
 
   const handleClick = async () => {
-    if (success) router.push(`/exercises/${+id + 1}`);
-    else await compileAndTest({ code, testCode });
+    if (success) {
+      setExerciseStatus(success);
+    } else {
+      const success = await compileAndTest({ code, testCode });
+    }
   };
 
   return (
@@ -51,6 +55,7 @@ export default function ExercisePage() {
       <section className={styles.controls}>
         <button
           className={styles.navButton}
+          disabled={Number(id) <= 0}
           onClick={() => router.push(`/exercises/${+id - 1}`)}
         >
           &lsaquo;

@@ -23,13 +23,13 @@ export default function Home() {
 
   if (!wallet) return <Loading />;
   if (wallet.isSignedIn()) {
-    router.push("/exercises/1");
+    router.push("/exercises");
     return <Loading />;
   }
 
   const handleSignin = async () => {
     wallet.requestSignIn({
-      contractId: "rnm.testnet",
+      contractId: process.env.NEXT_PUBLIC_CONTRACT_ID,
     });
   };
 
