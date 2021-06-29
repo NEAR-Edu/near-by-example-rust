@@ -46,7 +46,7 @@ export default function ExercisePage() {
     if (success) {
       setExerciseStatus(success);
     } else {
-      const success = await compileAndTest({ code, testCode });
+      await compileAndTest({ code, testCode });
     }
   };
 
