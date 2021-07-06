@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::{LookupMap, Vector};
 use near_sdk::json_types::ValidAccountId;
@@ -16,7 +18,7 @@ enum StorageKey {
 pub struct Contract {
     pub owner_id: AccountId,
     pub exercises: Vector<String>,
-    pub accounts: LookupMap<String, Vec<bool>>,
+    pub accounts: LookupMap<String, HashMap<String, bool>>,
 }
 
 #[near_bindgen]
@@ -68,29 +70,41 @@ impl Contract {
     }
 
     pub fn get_status(&self, account_id: ValidAccountId) -> Vec<(String, bool)> {
-        let status = self.accounts.get(&account_id.to_string()).unwrap_or(
-            std::iter::repeat(false)
-                .take(self.exercises.len() as usize)
-                .collect(),
-        );
+        let status = self
+            .accounts
+            .get(&account_id.to_string())
+            .unwrap_or(HashMap::new());
 
         self.exercises
             .iter()
-            .enumerate()
-            .map(|(index, title)| (title, status[index]))
+            .map(|exercise| {
+                (
+                    exercise.clone(),
+                    status.get(&exercise).unwrap_or(&false).clone(),
+                )
+            })
             .collect()
     }
 
     pub fn set_status(&mut self, account_id: ValidAccountId, exercise_index: u64, success: bool) {
-        let mut status = self.accounts.get(&account_id.to_string()).unwrap_or(
-            std::iter::repeat(false)
-                .take(self.exercises.len() as usize)
-                .collect(),
-        );
-
-        status[exercise_index as usize] = success;
-
+        let title = self.exercises.get(exercise_index).unwrap();
+        let mut status = self.internal_get_status(account_id.clone().into());
+        status.insert(title, success);
         self.accounts.insert(&account_id.to_string(), &status);
+    }
+
+    #[private]
+    fn internal_get_status(&self, account_id: AccountId) -> HashMap<String, bool> {
+        self.accounts
+            .get(&account_id.to_string())
+            .unwrap_or(
+                self.exercises
+                    .iter()
+                    .fold(HashMap::new(), |mut acc, exercise| {
+                        acc.insert(exercise, false);
+                        acc
+                    }),
+            )
     }
 }
 

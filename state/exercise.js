@@ -1,5 +1,63 @@
 import { useEffect, useState } from "react";
 
+const getCompilationErrorsAnnotations = (stderr) => {
+  return stderr
+    .split("\n\n")
+    .map(
+      (msg) =>
+        msg.match(
+          /(?<type>warning|error)\[?.*\]?:(?<message>.*)\n\s+--> src\/lib.rs:(?<line>\d+):.*\n(?<detail>.*\n\d+ \| [\s\w\b:{},;^=`|#[\]()&->]*)/
+        )?.groups
+    )
+    .filter((match) => match)
+    .map(({ type, line, message, detail }) => ({
+      type,
+      row: Number(line) - 1,
+      text: `${message}\n\n${detail}`,
+    }));
+};
+
+const getTestCompilationErrorsAnnotations = (stdout) => {
+  return stdout
+    .split("\n\n")
+    .map(
+      (msg) =>
+        msg.match(
+          /---- tests::(?<name>\w+) stdout ----\n(?<message>.*), src\/lib.rs:(?<line>\d+)/
+        )?.groups
+    )
+    .filter((match) => match)
+    .map(({ line, message }) => ({
+      type: "error",
+      row: Number(line) - 1,
+      text: message,
+    }));
+};
+
+const getTestFailuresAnnotations = (stdout, code) => {
+  const fnNames = code
+    .split("\n")
+    .map((line, lineNumber) => ({
+      fnName: line.match(/pub fn (?<name>.*)\(.*\)/)?.groups?.name,
+      lineNumber,
+    }))
+    .filter(({ fnName }) => fnName);
+  return stdout
+    .split("\n\n")
+    .map(
+      (msg) =>
+        msg.match(
+          /---- tests::(?<name>\w+) stdout ----\n(?<message>.*assertion failed(.|\n)*)/
+        )?.groups
+    )
+    .filter((match) => match)
+    .map(({ name, message }) => ({
+      type: "error",
+      row: fnNames.find(({ fnName }) => name.endsWith(fnName))?.lineNumber,
+      text: message,
+    }));
+};
+
 export const useExercise = (id) => {
   const [explanation, setExplanation] = useState();
   const [code, setCode] = useState();
@@ -58,13 +116,12 @@ export const useCompile = () => {
         }),
       });
       const { stderr = "", stdout, success } = await res.json();
-      setAnnotations(
-        [
-          ...stderr.matchAll(
-            /(warning|error)\[?.*\]?:.*\n\s+--> src\/lib.rs:(\d+):.*\n.*\n\d+ \| ([\s\w\b:{},;^=`|#[\]()&->]*)\n\n/g
-          ),
-        ].map(([, type, row, text]) => ({ type, row: Number(row) - 1, text }))
-      );
+      console.log(getTestFailuresAnnotations(stdout, code));
+      setAnnotations([
+        ...getCompilationErrorsAnnotations(stderr),
+        ...getTestCompilationErrorsAnnotations(stdout),
+        ...getTestFailuresAnnotations(stdout, code),
+      ]);
       setStdout(`${stderr}\n\n${stdout}`);
       setSuccess(success);
     } finally {

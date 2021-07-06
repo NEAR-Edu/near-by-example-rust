@@ -58,25 +58,25 @@ mod tests {
     }
 
     #[test]
-    fn test_saturating_increment() {
+    fn test_wrapping_increment() {
         let context = get_context(vec![], false);
         testing_env!(context);
 
         let mut contract = Counter { val: 127 };
         contract.increment();
 
-        assert_eq!(127, contract.get_num());
+        assert_eq!(-128, contract.get_num());
     }
 
     #[test]
-    fn test_saturating_decrement() {
+    fn test_wrapping_decrement() {
         let context = get_context(vec![], false);
         testing_env!(context);
 
         let mut contract = Counter { val: -128 };
         contract.decrement();
 
-        assert_eq!(-128, contract.get_num());
+        assert_eq!(127, contract.get_num());
     }
 
     #[test]

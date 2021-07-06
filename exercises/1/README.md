@@ -1,15 +1,18 @@
-# Status Message
+# Saturating Counter Contract
 
-Implement a Smart Contract that can `set_status` and `get_status` using a `LookupMap`.
+In the last exercise we implemented a simple `Counter` smart contract. In this exercise we'll improve that contract by adding some overflow safety.
 
-## set_status
+Since the `Counter` uses an `i8` the minimum `self.val` is `-128` and the maximum is `127`. If we try to `decrement` or `increment` outside the minimum or maximum an overflow will occur. This can be prevented by using the `saturating_*` methods.
 
-The `set_status` smart contract method should `insert` a message into the `self.records` `LookupMap`.
+## Improve increment
 
-## get_status
+Update the `increment` method so that it saturates at the `i8::MAX` value.
 
-The `get_status` smart contract method should get a message stored at the `account_id` key inside the `self.records` `LookupMap`.
+## Improve decrement
+
+Update the `decrement` method so that it saturates at the `i8::MIN` value.
 
 ## Resources
 
-- [LookupMap](https://docs.rs/near-sdk/3.1.0/near_sdk/collections/struct.LookupMap.html)
+- [saturating_add](https://doc.rust-lang.org/std/primitive.i8.html#method.saturating_add)
+- [saturating_sub](https://doc.rust-lang.org/std/primitive.i8.html#method.saturating_sub)
